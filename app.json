@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "fonts": [
+      {
+        "asset": "fonts/Montserrat/Montserrat-VariableFont_wght.ttf",
+        "family": "Montserrat"
+      },
+      {
+        "asset": "fonts/Orbitron/static/Orbitron-Bold.ttf",
+        "family": "Orbitron"
+      },
+      {
+        "asset": "fonts/Roboto/static/RobotoSlab-Bold.ttf",
+        "family": "Roboto"
+      }
+    ],
+    "name": "DemoProject",
+    "slug": "DemoProject",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.rajan8553.DemoProject"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d9875302-53d1-409a-8a90-007e701271f2"
+      }
+    },
+    "owner": "rajan8553"
+  }
+}
