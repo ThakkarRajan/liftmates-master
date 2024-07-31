@@ -118,7 +118,6 @@ const ProfileDetailsScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={24} color="#333" />
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.card}>
@@ -177,17 +176,51 @@ const ProfileDetailsScreen = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f8f9fa',
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
-    padding: 20,
+    padding: 24,
+    justifyContent:'center'
   },
   card: {
+    justifyContent:'center',
     backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 20,
+    borderRadius: 20,
+    padding: 24,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    zIndex: 1,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  profileImage: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    borderWidth: 4,
+    borderColor: '#4A90E2',
+  },
+  editIconContainer: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#4A90E2',
+    borderRadius: 24,
+    padding: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -197,72 +230,63 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  backButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    borderWidth: 3,
-    borderColor: '#4A90E2',
-  },
-  editIconContainer: {
-    position: 'absolute',
-    right: -5,
-    bottom: 0,
-    backgroundColor: '#4A90E2',
-    borderRadius: 20,
-    padding: 8,
-  },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: 24,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: '#333',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 8,
+    color: '#495057',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    padding: 12,
+    borderColor: '#ced4da',
+    borderRadius: 12,
+    padding: 16,
     fontSize: 16,
-    color: '#333',
+    color: '#495057',
+    backgroundColor: '#f8f9fa',
   },
   datePickerButton: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    padding: 12,
+    borderColor: '#ced4da',
+    borderRadius: 12,
+    padding: 16,
+    backgroundColor: '#f8f9fa',
   },
   datePickerText: {
     fontSize: 16,
-    color: '#333',
+    color: '#495057',
   },
   button: {
     backgroundColor: '#4A90E2',
-    padding: 15,
-    borderRadius: 25,
+    padding: 18,
+    width:'50%',
+    marginLeft:'25%',
+    borderRadius: 35,
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 24,
+    shadowColor: "#4A90E2",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   disabledButton: {
-    backgroundColor: '#A0A0A0',
+    backgroundColor: '#a0a0a0',
+    shadowOpacity: 0.1,
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    letterSpacing: 0.5,
   },
 });
 

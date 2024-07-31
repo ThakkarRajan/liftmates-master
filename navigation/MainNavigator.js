@@ -22,7 +22,7 @@ const ProfileStackNavigator = () => {
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
-        name="Profilet"
+        name="Profile"
         component={ProfileScreen}
         options={{ headerLeft: () => null }}
       />
@@ -40,7 +40,7 @@ const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
-        name="Homet"
+        name="Home"
         component={HomeScreen}
         options={{ headerLeft: () => null }}
       />

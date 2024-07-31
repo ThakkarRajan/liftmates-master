@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert, ScrollView } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import * as Location from 'expo-location';
 import { auth, db } from '../utils/firebase'; 
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import PostRequestScreenStyles from '../Styles/PostRequestScreenStyles';
 
 const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJIB7mo" }) => {
   const [location1, setLocation1] = useState('');
@@ -12,6 +14,14 @@ const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJI
   const [description, setDescription] = useState('');
   const [seats, setSeats] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [locationPermission, setLocationPermission] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      setLocationPermission(status === 'granted');
+    })();
+  }, []);
 
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
@@ -21,15 +31,41 @@ const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJI
     hideDatePicker();
   };
 
+  const fetchCoordinates = async (address) => {
+    if (!locationPermission) {
+      Alert.alert('Permission Denied', 'Location permission is required to use this feature.');
+      return null;
+    }
+
+    try {
+      let location = await Location.geocodeAsync(address);
+      if (location.length > 0) {
+        return {
+          latitude: location[0].latitude,
+          longitude: location[0].longitude
+        };
+      }
+    } catch (error) {
+      console.error('Error fetching coordinates:', error);
+      Alert.alert('Error', 'Unable to fetch coordinates for the provided location');
+      return null;
+    }
+  };
+
   const handleSubmit = async () => {
     if (!location1 || !location2 || !pickupDate || !description || !seats) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert('Error', 'Fields Cannot be Empty');
       return;
     }
 
     const parsedSeats = parseInt(seats);
     if (isNaN(parsedSeats) || parsedSeats <= 0 || parsedSeats > 3) {
       Alert.alert('Error', 'Number of seats must be between 1 and 3');
+      return;
+    }
+
+    if (!locationPermission) {
+      Alert.alert('Permission Required', 'Location permission is needed to post a request. Please grant permission in your device settings.');
       return;
     }
 
@@ -40,9 +76,18 @@ const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJI
         return;
       }
 
+      const coords1 = await fetchCoordinates(location1);
+      const coords2 = await fetchCoordinates(location2);
+
+      if (!coords1 || !coords2) {
+        return; // Alert is already shown in fetchCoordinates
+      }
+
       const requestData = {
         location1,
         location2,
+        location1Coords: coords1,
+        location2Coords: coords2,
         pickupDate: pickupDate.toISOString(),
         description,
         seats: parsedSeats,
@@ -52,6 +97,7 @@ const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJI
 
       await addDoc(collection(db, 'requests'), requestData);
       Alert.alert('Success', 'Request posted successfully');
+      // Reset form fields
       setLocation1('');
       setLocation2('');
       setPickupDate(new Date());
@@ -64,115 +110,87 @@ const PostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJI
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.form}>
-        <GooglePlacesAutocomplete
-          placeholder="Departure Location"
-          onPress={(data) => setLocation1(data.description)}
-          query={{
-            key: googleApiKey,
-            language: 'en',
-            components: 'country:ca',
-          }}
-          styles={{
-            textInput: styles.input,
-            container: { flex: 0, marginBottom: 15 },
-            listView: { backgroundColor: 'white' },
-          }}
-        />
-        <GooglePlacesAutocomplete
-          placeholder="Destination Location"
-          onPress={(data) => setLocation2(data.description)}
-          query={{
-            key: googleApiKey,
-            language: 'en',
-          }}
-          styles={{
-            textInput: styles.input,
-            container: { flex: 0, marginBottom: 15 },
-            listView: { backgroundColor: 'white' },
-          }}
-        />
-        <Text style={styles.label}>Pickup Date and Time</Text>
-        <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>
-          <Text style={styles.datePickerButtonText}>{pickupDate.toLocaleString()}</Text>
-        </TouchableOpacity>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="datetime"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-          multiline
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Number of Seats (max 3)"
-          value={seats}
-          onChangeText={setSeats}
-          keyboardType="numeric"
-        />
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit Request</Text>
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView style={PostRequestScreenStyles.container}>
+      <ScrollView contentContainerStyle={PostRequestScreenStyles.scrollView}>
+        <View style={PostRequestScreenStyles.form}>
+          <View style={PostRequestScreenStyles.inputContainer}>
+            <Text style={PostRequestScreenStyles.label}>Departure Location</Text>
+            <GooglePlacesAutocomplete
+              placeholder="Enter departure location"
+              onPress={(data) => setLocation1(data.description)}
+              query={{
+                key: googleApiKey,
+                language: 'en',
+                components: 'country:ca',
+              }}
+              styles={{
+                textInput: PostRequestScreenStyles.googlePlacesInput.textInput,
+                container: PostRequestScreenStyles.googlePlacesInput.container,
+                listView: PostRequestScreenStyles.googlePlacesInput.listView,
+                row: PostRequestScreenStyles.googlePlacesInput.row,
+                separator: PostRequestScreenStyles.googlePlacesInput.separator,
+                description: PostRequestScreenStyles.googlePlacesInput.description,
+              }}
+            />
+          </View>
+          <View style={PostRequestScreenStyles.inputContainer}>
+            <Text style={PostRequestScreenStyles.label}>Destination Location</Text>
+            <GooglePlacesAutocomplete
+              placeholder="Enter destination location"
+              onPress={(data) => setLocation2(data.description)}
+              query={{
+                key: googleApiKey,
+                language: 'en',
+              }}
+              styles={{
+                textInput: PostRequestScreenStyles.googlePlacesInput.textInput,
+                container: PostRequestScreenStyles.googlePlacesInput.container,
+                listView: PostRequestScreenStyles.googlePlacesInput.listView,
+                row: PostRequestScreenStyles.googlePlacesInput.row,
+                separator: PostRequestScreenStyles.googlePlacesInput.separator,
+                description: PostRequestScreenStyles.googlePlacesInput.description,
+              }}
+            />
+          </View>
+          <View style={PostRequestScreenStyles.inputContainer}>
+            <Text style={PostRequestScreenStyles.label}>Pickup Date and Time</Text>
+            <TouchableOpacity onPress={showDatePicker} style={PostRequestScreenStyles.datePickerButton}>
+              <Text style={PostRequestScreenStyles.datePickerButtonText}>{pickupDate.toLocaleString()}</Text>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="datetime"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
+          </View>
+          <View style={PostRequestScreenStyles.inputContainer}>
+            <Text style={PostRequestScreenStyles.label}>Description</Text>
+            <TextInput
+              style={[PostRequestScreenStyles.input, PostRequestScreenStyles.descriptionInput]}
+              placeholder="Enter description"
+              value={description}
+              onChangeText={setDescription}
+              multiline
+            />
+          </View>
+          <View style={PostRequestScreenStyles.inputContainer}>
+            <Text style={PostRequestScreenStyles.label}>Number of Seats (max 3)</Text>
+            <TextInput
+              style={PostRequestScreenStyles.input}
+              placeholder="Enter number of seats"
+              value={seats}
+              onChangeText={setSeats}
+              keyboardType="numeric"
+            />
+          </View>
+          <TouchableOpacity style={PostRequestScreenStyles.button} onPress={handleSubmit}>
+            <Text style={PostRequestScreenStyles.buttonText}>Submit Request</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f8f9fa',
-  },
-  form: {
-    marginTop: 20,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: '#6c757d',
-  },
-  input: {
-    height: 50,
-    borderColor: '#ced4da',
-    borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    backgroundColor: '#fff',
-  },
-  datePickerButton: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#ced4da',
-    borderWidth: 1,
-    marginBottom: 15,
-    borderRadius: 5,
-    backgroundColor: '#fff',
-  },
-  datePickerButtonText: {
-    fontSize: 16,
-    color: '#495057',
-  },
-  button: {
-    backgroundColor: '#007bff',
-    padding: 15,
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-});
 
 export default PostRequestScreen;
