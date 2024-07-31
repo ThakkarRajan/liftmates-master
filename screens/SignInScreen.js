@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Platform, Switch, ImageBackground, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, Switch, ImageBackground, ScrollView, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -21,10 +21,13 @@ const SignInScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSignIn = async () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please enter both email and password.');
-      return;
-    }
+    if (!email) {
+      Alert.alert('Error', 'Email is required');
+    } else if (!password) {
+      Alert.alert('Error', 'Password is required');
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      Alert.alert('Error', 'Please enter a valid email address');
+    } 
 
     setLoading(true);
 
@@ -49,7 +52,7 @@ const SignInScreen = ({ navigation }) => {
 
       navigation.replace('Main');
     } catch (error) {
-      Alert.alert('Sign In Error', error.message);
+      console.log(`Error:${error}`)
     } finally {
       setLoading(false);
     }

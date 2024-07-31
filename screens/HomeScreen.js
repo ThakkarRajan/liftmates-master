@@ -31,11 +31,11 @@ const HomeScreen = () => {
           <Text style={HomeScreenStyles.contentText}>Discover, Share, and Connect through Rides</Text>
           
           <View style={HomeScreenStyles.actionContainer}>
-            <TouchableOpacity style={HomeScreenStyles.actionButton} onPress={() => console.log('Find pressed')}>
+            <TouchableOpacity style={HomeScreenStyles.actionButton} onPress={() => navigation.navigate('FindRide')}>
               <Ionicons name="search" size={20} color="white" />
               <Text style={HomeScreenStyles.actionButtonText}>Find Ride</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={HomeScreenStyles.actionButton} onPress={() => console.log('Post Book Request pressed')}>
+            <TouchableOpacity style={HomeScreenStyles.actionButton} onPress={() => navigation.navigate('PostRequest')}>
               <Ionicons name="add-circle-outline" size={20} color="white" />
               <Text style={HomeScreenStyles.actionButtonText}>Post Ride</Text>
             </TouchableOpacity>

@@ -21,15 +21,20 @@ const SignUpScreen = ({ navigation }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSignUp = async () => {
-    if (password !== confirmPassword) {
+    if (!email) {
+      Alert.alert('Error', 'Email is required');
+    } else if (!password) {
+      Alert.alert('Error', 'Password is required');
+    } else if (!confirmPassword) {
+      Alert.alert('Error', 'Confirm password is required');
+    } else if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match');
-      return;
-    }
+    } 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       navigation.replace('Main');
     } catch (error) {
-      Alert.alert('Sign Up Error', error.message);
+      console.log(`Error:${error}`)
     }
   };
 
