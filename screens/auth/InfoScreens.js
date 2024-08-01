@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, Dimensions, TouchableOpacity, Animated, ScrollView, ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import InfoScreensStyles from '../Styles/InfoScreensStyles';
+import InfoScreensStyles from '../../Styles/InfoScreensStyles';
 
 const { width } = Dimensions.get('window');
 
@@ -50,7 +50,7 @@ const InfoScreens = () => {
         style={InfoScreensStyles.scrollView}
       >
         <ImageBackground
-      source={require('../assets/info1.png')} // Replace with your image path
+      source={require('../../assets/info1.png')} // Replace with your image path
       style={InfoScreensStyles.backgroundImage}
     >
         <View style={[InfoScreensStyles.screen, { width }]}>
@@ -60,7 +60,7 @@ const InfoScreens = () => {
         </View>
         </ImageBackground>
         <ImageBackground
-      source={require('../assets/info2.png')} // Replace with your image path
+      source={require('../../assets/info2.png')} // Replace with your image path
       style={InfoScreensStyles.backgroundImage}
     >
         <View style={[InfoScreensStyles.screen, { width }]}>
@@ -70,7 +70,7 @@ const InfoScreens = () => {
         </ImageBackground>
 
         <ImageBackground
-      source={require('../assets/info3.png')} // Replace with your image path
+      source={require('../../assets/info3.png')} // Replace with your image path
       style={InfoScreensStyles.backgroundImage}
     >
         <View style={[InfoScreensStyles.screen, { width }]}>

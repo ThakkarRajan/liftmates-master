@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, Dimensions, Easing, ImageBackground} from 'react-native';
-import SplashScreenStyles from '../Styles/SplashScreenStyles';
+import SplashScreenStyles from '../../Styles/SplashScreenStyles';
 
 const { width } = Dimensions.get('window');
 
@@ -33,7 +33,7 @@ const SplashScreen = ({ navigation }) => {
     ]).start();
 
     const timeout = setTimeout(() => {
-      navigation.replace('InfoScreens');
+      navigation.replace('Auth');
     }, 3800);
 
     return () => clearTimeout(timeout);
@@ -59,13 +59,13 @@ const SplashScreen = ({ navigation }) => {
 
   return (
 <ImageBackground
-          source={require('../assets/main.png')}
+          source={require('../../assets/main.png')}
           style={SplashScreenStyles.backgroundImage}
           resizeMode="cover"
         >
           <View style={SplashScreenStyles.container}>
         <Animated.Image
-          source={require('../assets/logo.png')}
+          source={require('../../assets/logo.png')}
           style={[
             SplashScreenStyles.logo,
             {

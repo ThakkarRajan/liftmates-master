@@ -3,9 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Aler
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as Location from 'expo-location';
-import { auth, db } from '../utils/firebase';
+import { auth, db } from '../../utils/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import CustomPostRequestScreenStyles from '../Styles/CustomPostRequestScreenStyles';
+import CustomPostRequestScreenStyles from '../../Styles/CustomPostRequestScreenStyles';
 
 const CustomerPostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJIB7mo" }) => {
   const [location1, setLocation1] = useState('');
@@ -80,7 +80,7 @@ const CustomerPostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8P
       const coords2 = await fetchCoordinates(location2);
 
       if (!coords1 || !coords2) {
-        return; // Alert is already shown in fetchCoordinates
+        return; 
       }
 
       const requestData = {

@@ -1,23 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import HomeScreenStyles from '../Styles/HomeScreenStyles';
-import { useNavigation } from '@react-navigation/native'; // Import this
+import HomeScreenStyles from '../../Styles/HomeScreenStyles';
+import { useNavigation } from '@react-navigation/native'; 
 
 const HomeScreen = () => {
-  const navigation = useNavigation(); // Add this line
+  const navigation = useNavigation(); 
 
   return (
-    <ImageBackground
-      source={require('../assets/backHome.jpg')} 
-      style={HomeScreenStyles.backgroundImage}
-    >
-      <View style={HomeScreenStyles.overlay} />
+    
       <SafeAreaView style={HomeScreenStyles.container}>
+      <View style={HomeScreenStyles.overlay} />
         <View style={HomeScreenStyles.header}>
           <View style={HomeScreenStyles.headerLeft}>
             <TouchableOpacity
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.openDrawer( "Profile" )}
               style={HomeScreenStyles.drawerIcon}
             >
               <Ionicons name="menu" size={30} color="#333" />
@@ -42,7 +39,8 @@ const HomeScreen = () => {
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
+      
+    
   );
 };
 

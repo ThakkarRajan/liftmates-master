@@ -3,21 +3,21 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import HomeScreen from '../screens/HomeScreen';
-import RidesScreen from '../screens/RidesScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import ProfileDetailsScreen from '../screens/Profile/ProfileDetailsScreen';
-import SettingsScreen from '../screens/Profile/SettingsScreen';
-import HelpScreen from '../screens/Profile/HelpScreen';
-import LogoutScreen from '../screens/Profile/LogoutScreen';
-import PostRequestScreen from '../screens/PostRequestScreen';
-import FindRideScreen from '../screens/FindRideScreen';
-import RideDetailsScreen from '../screens/RideDetailsScreen';
-import DriverPostRequestScreen from '../screens/DriverPostRequestScreen';
-import CustomerPostRequestScreen from '../screens/CustomerPostRequestScreen';
-import DriverEditPostDetailsScreen from '../screens/Profile/DriverEditPostDetailsScreen';
-import DriverEditPostScreen from '../screens/Profile/DriverEditPostScreen';
+import HomeScreen from '../screens/home/HomeScreen';
+import RidesScreen from '../screens/ride/RidesScreen';
+import ProfileDetailsScreen from '../screens/profile/ProfileDetailsScreen';
+import SettingsScreen from '../screens/profile/SettingsScreen';
+import HelpScreen from '../screens/profile/HelpScreen';
+import LogoutScreen from '../screens/profile/LogoutScreen';
+import PostRequestScreen from '../screens/home/PostRequestScreen';
+import FindRideScreen from '../screens/home/FindRideScreen';
+import RideDetailsScreen from '../screens/ride/RideDetailsScreen';
+import DriverPostRequestScreen from '../screens/home/DriverPostRequestScreen';
+import CustomerPostRequestScreen from '../screens/home/CustomerPostRequestScreen';
+import DriverEditPostDetailsScreen from '../screens/Profile/DriverEditPostDetailsScreen'; 
+import DriverEditPostScreen from '../screens/Profile/DriverEditPostScreen'; 
 
+import ProfileScreen from '../screens/Profile/ProfileScreen';
 
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
@@ -53,6 +53,7 @@ const HomeStackNavigator = () => {
         component={HomeScreen} 
         options={{ headerLeft: () => null }}
       />
+      
       <HomeStack.Screen name="PostRequest" component={PostRequestScreen} />
       <HomeStack.Screen name="DriverPostRequest" component={DriverPostRequestScreen} />
       <HomeStack.Screen name="CustomerPostRequest" component={CustomerPostRequestScreen} />
@@ -107,8 +108,6 @@ const MainNavigator = () => {
     >
       <Tab.Screen name="Home" component={HomeStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Ride" component={RideStackNavigator} options={{ headerShown: false }} />
-
-      
       <Tab.Screen name="Profile" component={ProfileStackNavigator} options={{ headerShown: false }} />
     </Tab.Navigator>
   );

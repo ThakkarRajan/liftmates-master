@@ -4,7 +4,7 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import { getDistance } from 'geolib';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
-import RideDetailsScreenStyles from '../Styles/RideDetailsScreenStyles';
+import RideDetailsScreenStyles from '../../Styles/RideDetailsScreenStyles';
 
 const { width } = Dimensions.get('window');
 

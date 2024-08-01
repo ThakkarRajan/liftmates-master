@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
-import PostRequestScreenStyles from '../Styles/PostRequestScreenStyles';
+import PostRequestScreenStyles from '../../Styles/PostRequestScreenStyles';
 
 const PostRequestScreen = ({ navigation }) => {
   return (

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ImageBackground, SafeAreaView, Alert, TouchableOpacity, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../utils/firebase';
-import SignUpStyles from '../Styles/SignUpStyles';
+import { auth } from '../../utils/firebase';
+import SignUpStyles from '../../Styles/SignUpStyles';
 
 
 const CustomButton = ({ title, onPress, style }) => (
@@ -32,7 +32,7 @@ const SignUpScreen = ({ navigation }) => {
     } 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigation.replace('Main');
+      navigation.replace('SignIn');
     } catch (error) {
       console.log(`Error:${error}`)
     }
@@ -40,7 +40,7 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-    source={require('../assets/bg.png')} 
+    source={require('../../assets/bg.png')} 
     style={SignUpStyles.backgroundImage}
   >
   <SafeAreaView style={SignUpStyles.overlay}>

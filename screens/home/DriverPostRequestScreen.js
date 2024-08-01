@@ -3,8 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 're
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as Location from 'expo-location';
-import { auth, db } from '../utils/firebase';
-import DriverPostRequestScreenStyles from '../Styles/DriverPostRequestScreenStyles';
+import { auth, db } from '../../utils/firebase';
+import DriverPostRequestScreenStyles from '../../Styles/DriverPostRequestScreenStyles';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DriverPostRequestScreen = ({ googleApiKey = "AIzaSyDAYE076DoS9CvYvRvFz8PYCqnZoJIB7mo" }) => {

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, RefreshControl } from 'react-native';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../utils/firebase';
+import { db } from '../../utils/firebase';
 import { useFocusEffect } from '@react-navigation/native';
-import RideScreenStyles from '../Styles/RideScreenStyles';
+import RideScreenStyles from '../../Styles/RideScreenStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const RidesScreen = ({ navigation }) => {

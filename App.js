@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from './screens/SplashScreen';
-import InfoScreens from './screens/InfoScreens';
+import SplashScreen from './screens/auth/SplashScreen';
+import InfoScreens from './screens/auth/InfoScreens';
 import MainNavigator from './navigation/MainNavigator';
 import { useFonts } from 'expo-font';
 import AuthNavigator from './navigation/AuthNavigator';
@@ -23,7 +23,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="InfoScreens" component={InfoScreens} />
+        {/* <Stack.Screen name="InfoScreens" component={InfoScreens} /> */}
         <Stack.Screen name="Auth" component={AuthNavigator} />
         <Stack.Screen name="Main" component={MainNavigator} />
       </Stack.Navigator>

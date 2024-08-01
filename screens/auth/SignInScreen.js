@@ -3,8 +3,8 @@ import { View, Text, TextInput, Alert, TouchableOpacity, Switch, ImageBackground
 import { Ionicons } from '@expo/vector-icons';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../utils/firebase'; // Ensure this path is correct
-import SignInStyles from '../Styles/SignInStyles';
+import { auth, db } from '../../utils/firebase'; 
+import SignInStyles from '../../Styles/SignInStyles';
 
 
 const CustomButton = ({ title, onPress, style }) => (
@@ -21,14 +21,15 @@ const SignInScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSignIn = async () => {
+    
     if (!email) {
-      Alert.alert('Error', 'Email is required');
+      Alert.alert('Email Is Required', 'Please Enter Valid Email ID');
     } else if (!password) {
-      Alert.alert('Error', 'Password is required');
+      Alert.alert('Password Is Required', 'Please Enter Password');
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email address');
+      Alert.alert('Email', 'Please enter a valid email address');
     } 
-
+   
     setLoading(true);
 
     try {
@@ -38,20 +39,19 @@ const SignInScreen = ({ navigation }) => {
       // Check if user data exists in Firestore
       const userDocRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userDocRef);
-
       if (!userDoc.exists()) {
         // Add user data to Firestore
         await setDoc(userDocRef, {
           email: user.email,
           userDetails: {
             createdAt: new Date(),
-            
           },
         });
       }
 
       navigation.replace('Main');
     } catch (error) {
+      Alert.alert('Email Or Password ', `${error}`);
       console.log(`Error:${error}`)
     } finally {
       setLoading(false);
@@ -60,7 +60,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../assets/bg.png')}
+      source={require('../../assets/bg.png')}
       style={SignInStyles.backgroundImage}
       resizeMode="cover"
     >
