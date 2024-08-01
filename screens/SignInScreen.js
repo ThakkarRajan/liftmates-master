@@ -105,7 +105,7 @@ const SignInScreen = ({ navigation }) => {
             </View>
             <View style={SignInStyles.buttonContainer}>
               {loading ? (
-                <ActivityIndicator size="large" color="#8A2BE2" />
+                <ActivityIndicator size="large" color="black" />
               ) : (
                 <CustomButton title="Sign In" onPress={handleSignIn} />
               )}

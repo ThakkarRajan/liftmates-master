@@ -1,0 +1,80 @@
+import { StyleSheet , Platform} from 'react-native';
+
+const CustomPostRequestScreenStyles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#f8f9fa',
+    },
+    form: {
+      flex: 1,
+      marginTop: Platform.OS === 'ios' ? 40 : 20,
+      paddingHorizontal: 15,
+    },
+    label: {
+      fontSize: 16,
+      paddingBottom:5,
+      fontWeight: 'bold',
+      marginBottom: 5,
+      color: '#6c757d',
+    },
+    input: {
+      height: 50,
+      borderColor: '#ced4da',
+      borderWidth: 1,
+      marginBottom: 15,
+      paddingHorizontal: 10,
+      borderRadius: 10,
+      backgroundColor: '#fff',
+      fontSize: 16,
+      color: '#495057',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 2,
+    },
+    descriptionInput: {
+      height: 100,
+      textAlignVertical: 'top',
+    },
+    datePickerButton: {
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderColor: '#ced4da',
+      borderWidth: 1,
+      marginBottom: 15,
+      borderRadius: 10,
+      backgroundColor: '#fff',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 2,
+    },
+    datePickerButtonText: {
+      fontSize: 16,
+      color: '#495057',
+    },
+    button: {
+      backgroundColor: '#007bff',
+      padding: 15,
+      width: '50%',
+      marginLeft: '25%',
+      alignItems: 'center',
+      borderRadius: 35,
+      marginTop: 15,
+      shadowColor: '#007bff',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
+      elevation: 6,
+    },
+    buttonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+  });
+  
+export default CustomPostRequestScreenStyles;

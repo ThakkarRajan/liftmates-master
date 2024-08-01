@@ -1,0 +1,107 @@
+import { StyleSheet } from "react-native";
+
+const DriverPostRequestScreenStyles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 10,
+      backgroundColor: '#f8f9fa',
+    },
+    form: {
+      marginBottom: 20,
+      backgroundColor: '#fff',
+      padding: 20,
+      borderRadius: 20,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 3,
+    },
+    label: {
+      fontSize: 16,
+      fontWeight:'bold',
+      marginBottom: 5,
+      color: '#6c757d',
+    },
+    input: {
+      height: 50,
+      borderColor: '#ced4da',
+      borderWidth: 1,
+      marginBottom: 15,
+      paddingHorizontal: 10,
+      borderRadius: 15,
+      backgroundColor: '#fff',
+    },
+    datePickerButton: {
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderColor: '#ced4da',
+      borderWidth: 1,
+      marginBottom: 15,
+      borderRadius: 15,
+      backgroundColor: '#fff',
+    },
+    datePickerButtonText: {
+      fontSize: 16,
+      color: 'black',
+    },
+    button: {
+      backgroundColor: '#007bff',
+      padding: 15,
+      width:'50%',
+      marginLeft:'25%',
+      alignItems: 'center',
+      borderRadius: 35,
+    },
+    buttonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+    rideList: {
+      margin: 10,
+    },
+    rideItem: {
+      backgroundColor: '#fff',
+      padding: 15,
+      borderRadius: 10,
+      marginBottom: 15,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 3,
+    },
+    rideText: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    rideItemButtons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 10,
+    },
+    editButton: {
+      backgroundColor: '#28a745',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 10,
+      borderRadius: 35,
+      flex: 1,
+      marginRight: 5,
+    },
+    deleteButton: {
+      backgroundColor: '#dc3545',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 10,
+      borderRadius: 35,
+      flex: 1,
+      marginLeft: 5,
+    },
+  });
+  
+  export default DriverPostRequestScreenStyles;
