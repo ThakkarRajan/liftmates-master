@@ -1,21 +1,17 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Make sure you have @expo/vector-icons installed
 
+
 const ProfileScreen = ({ navigation }) => {
+  
   const menuOptions = [
     { id: '1', title: 'Profile Details', route: 'ProfileDetails', icon: 'person-circle-outline' },
-    { id: '2', title: 'Settings', route: 'Settings', icon: 'settings-outline' },
-    { id: '3', title: 'Help', route: 'Help', icon: 'help-circle-outline' },
-    { id: '4', title: 'Logout', route: 'Logout', icon: 'log-out-outline' },
+    { id: '2', title: 'Edit Post Details ', route: 'DriverEditPost', icon: 'person-circle-outline' },
+    { id: '3', title: 'Settings', route: 'Settings', icon: 'settings-outline' },
+    { id: '4', title: 'Help', route: 'Help', icon: 'help-circle-outline' },
+    { id: '5', title: 'Logout', route: 'Logout', icon: 'log-out-outline' },
   ];
-
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate(item.route)}>
-      <Ionicons name={item.icon} size={24} color="#333" style={styles.icon} />
-      <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
-  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -23,10 +19,16 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.header}>Profile</Text>
         <FlatList
           data={menuOptions}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.item} onPress={() => navigation.navigate(item.route)}>
+              <Ionicons name={item.icon} size={24} color="#333" style={styles.icon} />
+              <Text style={styles.title}>{item.title}</Text>
+            </TouchableOpacity>
+          )}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContainer}
         />
+        
       </View>
     </SafeAreaView>
   );
@@ -46,6 +48,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 20,
+    paddingHorizontal: 16,
+  },
+  subHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginVertical: 20,
     paddingHorizontal: 16,
   },
   listContainer: {

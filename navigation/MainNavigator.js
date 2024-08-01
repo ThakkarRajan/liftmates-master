@@ -15,6 +15,9 @@ import FindRideScreen from '../screens/FindRideScreen';
 import RideDetailsScreen from '../screens/RideDetailsScreen';
 import DriverPostRequestScreen from '../screens/DriverPostRequestScreen';
 import CustomerPostRequestScreen from '../screens/CustomerPostRequestScreen';
+import DriverEditPostDetailsScreen from '../screens/Profile/DriverEditPostDetailsScreen';
+import DriverEditPostScreen from '../screens/Profile/DriverEditPostScreen';
+
 
 // Create the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
@@ -32,6 +35,8 @@ const ProfileStackNavigator = () => {
       />
       <ProfileStack.Screen name="ProfileDetails" component={ProfileDetailsScreen} />
       <ProfileStack.Screen name="Settings" component={SettingsScreen} />
+      <ProfileStack.Screen name="DriverEditPost" component={DriverEditPostScreen } />
+      <ProfileStack.Screen name="DriverEditPostDetails" component={DriverEditPostDetailsScreen} />
       <ProfileStack.Screen name="Help" component={HelpScreen} />
       <ProfileStack.Screen name="Logout" component={LogoutScreen} />
     </ProfileStack.Navigator>

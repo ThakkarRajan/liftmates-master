@@ -11,7 +11,7 @@ const RidesScreen = ({ navigation }) => {
   const [driverRides, setDriverRides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [activeTab, setActiveTab] = useState('customer');
+  const [activeTab, setActiveTab] = useState('driver');
 
   const fetchRides = async () => {
     setLoading(true);
